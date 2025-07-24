@@ -1,0 +1,14 @@
+#include <tunables/global>
+
+profile guacd-apparmor-profile flags=(attach_disconnected,mediate_deleted) {
+    #include <abstractions/base>
+    #include <abstractions/nameservice>
+
+    capability sys_admin,
+    capability setuid,
+    capability setgid,
+    file,
+
+    mount options=(rw,remount,private) -> /,
+    mount options=(bind) /tmp/kcm-cef-dbus-*/ -> /var/run/dbus/,
+}
