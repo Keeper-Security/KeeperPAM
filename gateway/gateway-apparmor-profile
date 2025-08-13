@@ -1,0 +1,18 @@
+#include <tunables/global>
+
+profile gateway-apparmor-profile flags=(attach_disconnected,mediate_deleted) {
+
+    #include <abstractions/base>
+    #include <abstractions/nameservice>
+
+    capability sys_admin,
+    capability sys_chroot,
+    capability setuid,
+    capability setgid,
+    file,
+
+    mount options=(rw,rprivate) -> /,
+    mount options=(bind) /tmp/kcm-cef-dbus-*/ -> /run/dbus/,
+    mount options=(bind) /tmp/kcm-cef-dbus-*/ -> /var/run/dbus/,
+
+}
